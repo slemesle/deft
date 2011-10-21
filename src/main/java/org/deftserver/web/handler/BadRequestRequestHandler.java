@@ -6,13 +6,13 @@ import org.deftserver.web.http.HttpResponse;
 public class BadRequestRequestHandler extends RequestHandler {
 
 private final static BadRequestRequestHandler instance = new BadRequestRequestHandler();
-	
+
 	private BadRequestRequestHandler() { }
-	
+
 	public static final BadRequestRequestHandler getInstance() {
 		return instance;
 	}
-	
+
 	@Override
 	public void get(HttpRequest request, HttpResponse response) {
 		response.setStatusCode(400);

@@ -14,7 +14,7 @@ Copyright (C) 2005-2010 Apache Software Foundation
 
 javax.activation (using javax.activation.MimetypesFileTypeMap for mime-type header deduction)
 http://download.oracle.com/javase/6/docs/api/javax/activation/package-summary.html
-Copyright © 1993, 2010, Oracle and/or its affiliates. 
+Copyright © 1993, 2010, Oracle and/or its affiliates.
 
 Asynchronous Http client library used by unit tests.
 https://github.com/AsyncHttpClient/async-http-client

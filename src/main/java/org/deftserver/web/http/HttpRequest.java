@@ -139,7 +139,7 @@ public class HttpRequest {
     /**
      * Returns the value of a request parameter as a String, or null if the
      * parameter does not exist.
-     * 
+     *
      * You should only use this method when you are sure the parameter has only
      * one value. If the parameter might have more than one value, use
      * getParameterValues(java.lang.String). If you use this method with a
@@ -220,7 +220,7 @@ public class HttpRequest {
                 // We need to check if the parameter has a value associated with
                 // it.
                 if (keyValueArray.length > 1) { // name, value
-                    builder.put(keyValueArray[0], keyValueArray[1]); 
+                    builder.put(keyValueArray[0], keyValueArray[1]);
                 }
             }
         }

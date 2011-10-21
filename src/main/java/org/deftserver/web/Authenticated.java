@@ -8,12 +8,12 @@ import java.lang.annotation.Target;
 import org.deftserver.web.handler.RequestHandler;
 
 /**
- * Annotation used by implementation of {@link RequestHandler} to show that a method requires that the request 
- * (current user) is authenticated (i.e your overridden method {@link RequestHandler#getCurrentUser} 
- * returns a non null value) 
+ * Annotation used by implementation of {@link RequestHandler} to show that a method requires that the request
+ * (current user) is authenticated (i.e your overridden method {@link RequestHandler#getCurrentUser}
+ * returns a non null value)
  *
  */
 
-@Retention(RetentionPolicy.RUNTIME)	
+@Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Authenticated {}

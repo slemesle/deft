@@ -31,16 +31,16 @@ public abstract class RequestHandler {
 	private boolean isMethodAnnotated(HttpVerb verb, Class<? extends Annotation> annotation) {
 		try {
 			Class<?>[] parameterTypes = {HttpRequest.class, HttpResponse.class};
-			return getClass().getMethod(verb.toString().toLowerCase(), parameterTypes).getAnnotation(annotation) != null; 
+			return getClass().getMethod(verb.toString().toLowerCase(), parameterTypes).getAnnotation(annotation) != null;
 		} catch (NoSuchMethodException nsme) {
 			return false;
 		}
 	}
-	
+
 	public boolean isMethodAsynchronous(HttpVerb verb) {
 		return asynchVerbs.get(verb);
 	}
-	
+
 	public boolean isMethodAuthenticated(HttpVerb verb) {
 		return authVerbs.get(verb);
 	}
@@ -51,28 +51,28 @@ public abstract class RequestHandler {
 		response.write("");
 	}
 
-	public void post(HttpRequest request, HttpResponse response) { 
+	public void post(HttpRequest request, HttpResponse response) {
 		response.setStatusCode(501);
 		response.write("");
 	}
 
-	public void put(HttpRequest request, HttpResponse response) { 
+	public void put(HttpRequest request, HttpResponse response) {
 		response.setStatusCode(501);
 		response.write("");
 	}
 
-	public void delete(HttpRequest request, HttpResponse response) { 
+	public void delete(HttpRequest request, HttpResponse response) {
 		response.setStatusCode(501);
 		response.write("");
 	}
 
-	public void head(HttpRequest request, HttpResponse response) { 
+	public void head(HttpRequest request, HttpResponse response) {
 		response.setStatusCode(501);
 		response.write("");
 	}
-	
-	public String getCurrentUser(HttpRequest request) { 
-		return null; 
+
+	public String getCurrentUser(HttpRequest request) {
+		return null;
 	}
 
 }

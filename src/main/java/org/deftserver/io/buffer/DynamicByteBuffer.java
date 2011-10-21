@@ -48,7 +48,7 @@ public class DynamicByteBuffer {
 
     /**
      * Ensures that its safe to append size data to backend.
-     * 
+     *
      * @param size
      *            The size of the data that is about to be appended.
      */

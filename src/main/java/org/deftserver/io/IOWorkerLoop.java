@@ -6,7 +6,7 @@ public interface IOWorkerLoop extends Runnable {
 
     /**
      * Adds an accepted channel to the worker
-     * 
+     *
      * @param key
      */
     void addChannel(SocketChannel clientChannel, ChannelContext ctx);

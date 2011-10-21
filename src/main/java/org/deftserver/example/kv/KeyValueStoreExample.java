@@ -18,16 +18,16 @@ public class KeyValueStoreExample {
 
 	private final static Logger logger = LoggerFactory.getLogger(KeyValueStoreExample.class);
 	private final static int PORT = 8080;
-	
+
 	private static class KeyValueStoreExampleRequestHandler extends RequestHandler {
 
 		private final KeyValueStoreClient client = new KeyValueStoreClient(KeyValueStore.HOST, KeyValueStore.PORT);
-		
+
 		public KeyValueStoreExampleRequestHandler() {
 			new KeyValueStore().start();
 			client.connect();
 		}
-		
+
 		@Override
 		@Asynchronous
 		public void get(HttpRequest request, final HttpResponse response) {
@@ -38,7 +38,7 @@ public class KeyValueStoreExample {
 		}
 
 	}
-	
+
 	public static void main(String[] args) {
 		Map<String, RequestHandler> handlers = new HashMap<String, RequestHandler>();
 		handlers.put("/kv", new KeyValueStoreExampleRequestHandler());

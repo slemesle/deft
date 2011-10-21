@@ -8,12 +8,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class HttpRequest {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(HttpRequest.class);
 
 	private final URL url;
 	private final HttpVerb verb;
-	
+
 	public HttpRequest(String url, HttpVerb verb) {
 		try {
 			this.url = new URL(url);
@@ -27,13 +27,13 @@ public class HttpRequest {
 	public URL getURL() {
 		return url;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return The verb (method) name, e.g. "GET" or "POST"
 	 */
 	public String getVerb() {
 		return verb.name();
 	}
-	
+
 }

@@ -13,9 +13,9 @@ import com.google.common.base.Charsets;
 
 /**
  * Contains code for old parser support
- * 
+ *
  * @author slm
- * 
+ *
  */
 public class HttpRequestFactory {
 

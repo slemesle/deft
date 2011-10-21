@@ -143,7 +143,7 @@ public class HttpProtocol implements IOHandler {
     /**
      * Clears the buffer (prepares for reuse) attached to the given
      * SelectionKey.
-     * 
+     *
      * @return A cleared (position=0, limit=capacity) ByteBuffer which is ready
      *         for new reads
      */
@@ -200,19 +200,19 @@ public class HttpProtocol implements IOHandler {
             if (request instanceof PartialHttpRequest) {
                 ctx.setContext((PartialHttpRequest) request);
             }
-	
+
 
 
         }
         ctx.getBufferIn().clear();
         return request;
     }
-    
+
     @Override
     public void handleConnect(SelectionKey key) throws IOException {
         logger.error("handle connect in HttpProcotol...");
     }
-    
+
     @Override
     public String toString() {
         return "HttpProtocol";

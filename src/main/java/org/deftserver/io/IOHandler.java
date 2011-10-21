@@ -6,7 +6,7 @@ import java.nio.channels.SocketChannel;
 
 /**
  * TODO RS 101024 Add javadoc
- * 
+ *
  */
 public interface IOHandler {
 

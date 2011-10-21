@@ -364,7 +364,7 @@ public class DeftSystemTest {
 
     /**
      * Test a RH that does a single write
-     * 
+     *
      * @throws ClientProtocolException
      * @throws IOException
      */

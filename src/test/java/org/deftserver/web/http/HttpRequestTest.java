@@ -24,13 +24,13 @@ import org.junit.Test;
 public class HttpRequestTest {
 
 
-	@Test 
+	@Test
 	public void testDeserializeHttpGetRequest() {
 		HttpRequestHelper helper = new HttpRequestHelper();
 		helper.addHeader("Host", "127.0.0.1:8080");
 		helper.addHeader("User-Agent", "curl/7.19.5 (i386-apple-darwin10.0.0) libcurl/7.19.5 zlib/1.2.3");
 		helper.addHeader("Accept", "*/*");
-		ByteBuffer bb1 = helper.getRequestAsByteBuffer(); 
+		ByteBuffer bb1 = helper.getRequestAsByteBuffer();
 
 		helper = new HttpRequestHelper();
 		helper.addHeader("Host", "127.0.0.1:8080");
@@ -240,7 +240,7 @@ public class HttpRequestTest {
 
 		HttpRequest request = HttpRequest.of(helper.getRequestAsByteBuffer());
 		Map<String, Collection<String>> params = request.getParameters();
-		params.put("not", new ArrayList<String>());	
+		params.put("not", new ArrayList<String>());
 	}
 
 	@Test
@@ -285,7 +285,7 @@ public class HttpRequestTest {
 				new byte[] {1, 1, 1, 1}	// garbage
 		));
 	}
-	
+
 	/**
 	 * Ensure that header keys are converted to lower case, to facilitate
 	 * case-insensitive retrieval through {@link HttpRequest#getHeader(String)}.
@@ -333,27 +333,27 @@ public class HttpRequestTest {
 		assertEquals(expected, request.getHeader("TESTKEY"));
 		assertEquals(expected, request.getHeader("testkey"));
 	}
-	
-	@Test 
+
+	@Test
 	public void testHttpRequestNoQueryString() {
 		String requestLine = "GET /foobar HTTP/1.1 ";
 		HttpRequest request = new HttpRequest(requestLine, new HashMap<String, String>());
 		Assert.assertEquals("/foobar", request.getRequestedPath());
 	}
-	
-	@Test 
+
+	@Test
 	public void testHttpRequestNullQueryString() {
 		String requestLine = "GET /foobar? HTTP/1.1 ";
 		HttpRequest request = new HttpRequest(requestLine, new HashMap<String, String>());
 		Assert.assertEquals("/foobar", request.getRequestedPath());
 	}
-	
-	@Test 
+
+	@Test
 	public void testHttpRequestNullQueryStringTrailingSlash() {
 		String requestLine = "GET /foobar/? HTTP/1.1 ";
 		HttpRequest request = new HttpRequest(requestLine, new HashMap<String, String>());
 		Assert.assertEquals("/foobar/", request.getRequestedPath());
 	}
-	
+
 
 }

@@ -145,7 +145,7 @@ public enum IOLoop implements IOLoopMXBean, IOLoopController {
     }
 
     /**
-     * 
+     *
      * @param newInterestOps
      *            The complete new set of interest operations.
      */

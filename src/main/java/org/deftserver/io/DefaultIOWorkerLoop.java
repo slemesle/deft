@@ -73,7 +73,7 @@ public class DefaultIOWorkerLoop implements IOWorkerLoop, IOLoopController {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.deftserver.io.IOLoopController#addHandler(java.nio.channels.
      * SelectableChannel, org.deftserver.io.IOHandler, int, java.lang.Object)
      */
@@ -88,7 +88,7 @@ public class DefaultIOWorkerLoop implements IOWorkerLoop, IOLoopController {
     }
 
     /**
-     * 
+     *
      * @param newInterestOps
      *            The complete new set of interest operations.
      */
@@ -113,7 +113,7 @@ public class DefaultIOWorkerLoop implements IOWorkerLoop, IOLoopController {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.deftserver.io.IOLoopController#removeHandler(java.nio.channels.
      * SelectableChannel)
      */
@@ -126,7 +126,7 @@ public class DefaultIOWorkerLoop implements IOWorkerLoop, IOLoopController {
     /**
      * Register all pending SocketChannel accepted and added from AcceptLoop in
      * the {@link #newChannels} using {@link #addChannel(SocketChannel)} method
-     * 
+     *
      * @param channel
      * @param interestOps
      * @param attachment
@@ -147,7 +147,7 @@ public class DefaultIOWorkerLoop implements IOWorkerLoop, IOLoopController {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * org.deftserver.io.IOLoopController#addKeepAliveTimeout(java.nio.channels
      * .SocketChannel, org.deftserver.io.timeout.Timeout)
@@ -160,7 +160,7 @@ public class DefaultIOWorkerLoop implements IOWorkerLoop, IOLoopController {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * org.deftserver.io.IOLoopController#hasKeepAliveTimeout(java.nio.channels
      * .SelectableChannel)
@@ -172,7 +172,7 @@ public class DefaultIOWorkerLoop implements IOWorkerLoop, IOLoopController {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * org.deftserver.io.IOLoopController#addTimeout(org.deftserver.io.timeout
      * .Timeout)
@@ -184,7 +184,7 @@ public class DefaultIOWorkerLoop implements IOWorkerLoop, IOLoopController {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.deftserver.io.IOLoopController#addCallback(org.deftserver.web.
      * AsyncCallback)
      */

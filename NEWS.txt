@@ -1,6 +1,6 @@
 0.3.0
 =====
- 
+
 Features
 --------
     - Authentication support (#83)
@@ -24,7 +24,7 @@ Configuration
 
 0.2.0
 =====
- 
+
 Features
 --------
     - Asynchronous writes done right (#63).
@@ -38,29 +38,28 @@ Features
     - java.nio.ByteBuffer reuse (byte[] allocation is expensive) (#77)
     - Timeouts (JMX debuggable) (#80, #85)
     - HTTP Post support (#50, #71)
-         
+
 Configuration
 ------------
      - See org.deftserver.example.DeftServerExample (or www.deftserver.org) for
        configuration and usage hints.
-       
+
 
 
 0.1.0
 =====
- 
+
 Features
 --------
     - Date headers are always sent in http response (#29).
-    - Support for non-blocking, asynchronous requests (#11). 
+    - Support for non-blocking, asynchronous requests (#11).
     - Regular expressions (with capturing groups) in URL mapping (#10).
     - Support for HTTP GET parameters (#35).
     - Persistent connections ('Connection: Keep-Alive') (#19).
     - Static resources (#21 and #28, thanks to github.com/williame for pointing in right direction).
     - JMX api for monitoring 'keep-alive' connections.
-     
+
 Configuration
 ------------
      - See org.deftserver.example.DeftServerExample (or www.deftserver.org) for
        configuration and usage hints.
-       

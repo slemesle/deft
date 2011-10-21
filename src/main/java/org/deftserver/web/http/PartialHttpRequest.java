@@ -8,7 +8,7 @@ import org.deftserver.io.buffer.DynamicByteBuffer;
  * Represents an unfinished "dummy" HTTP request, e.g, an HTTP POST request
  * where the entire payload hasn't been received. (E.g. because the size of the
  * underlying (OS) socket's read buffer has a fixed size.)
- * 
+ *
  */
 
 public class PartialHttpRequest extends HttpRequest {

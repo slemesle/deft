@@ -33,8 +33,8 @@ public class AsynchronousSocketTest {
 			@Override public void run() { IOLoop.INSTANCE.start(); }
 		}).start();
 		Thread.sleep(300);	// hack to avoid SLF4J warning
-		
-		final CountDownLatch latch = new CountDownLatch(1);	
+
+		final CountDownLatch latch = new CountDownLatch(1);
 		new Thread(new Runnable() {
 
 			@Override
@@ -62,10 +62,10 @@ public class AsynchronousSocketTest {
 				}
 			}
 		}).start();
-		
+
 		latch.await(5, TimeUnit.SECONDS);
 	}
-	
+
 	@After
 	public void tearDown() throws InterruptedException {
 		IOLoop.INSTANCE.addCallback(new AsyncCallback() {
@@ -86,13 +86,13 @@ public class AsynchronousSocketTest {
 
 	private final AsynchronousSocket socket;
 	private final CountDownLatch latch = new CountDownLatch(3);	// 3 op/callbacks (connect, write, read)
-	
+
 	public AsynchronousSocketTest() throws IOException {
 		SelectableChannel channel = SocketChannel.open();
 		channel.configureBlocking(false);
 		socket = new AsynchronousSocket(channel);
 	}
-	
+
 	@Test
 	public void connectWriteAndReadCallbackTest() throws InterruptedException, IOException {
 		AsyncResult<Boolean> ccb = new AsyncResult<Boolean>() {
@@ -100,33 +100,33 @@ public class AsynchronousSocketTest {
 			public void onSuccess(Boolean result) { onConnect(); }
 		};
 		socket.connect(HOST, PORT, ccb);
-		
+
 		latch.await(5, TimeUnit.SECONDS);
-		
+
 		assertEquals(0, latch.getCount());
 		// TODO stop ioloop
 	}
-	
+
 	private void onConnect() {
 		latch.countDown();
 		AsyncCallback wcb = new AsyncCallback() { @Override public void onCallback() { onWriteComplete(); }};
 		socket.write("roger|\r\n", wcb);
 	}
-	
+
 	private void onWriteComplete() {
 		latch.countDown();
-		AsyncResult<String> rcb = new AsyncResult<String>() { 
+		AsyncResult<String> rcb = new AsyncResult<String>() {
 			@Override public void onFailure(Throwable caught) { assertTrue(false); }
 			@Override public void onSuccess(String result) { onReadComplete(result); }
 		};
 		socket.readUntil("|", rcb);
 	}
-	
+
 	private void onReadComplete(String result) {
 		if ("ROGER".equals(result)) {
 			latch.countDown();
 		}
 		assertEquals("ROGER", result);
 	}
-	
+
 }
