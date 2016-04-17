@@ -100,9 +100,9 @@ public class HttpParserBenchmarkTest {
      * Objet utilis pour calculer les temps de traitements minimum, maximum et
      * moyen. A chaque itration, il suffit d'ajouter le temps de traitement au
      * TimeStat pour mettre jour les statistiques de temps.
-     * 
+     *
      * @author slm
-     * 
+     *
      */
     class TimeStat {
 
@@ -132,9 +132,9 @@ public class HttpParserBenchmarkTest {
 
     /**
      * Compteur de temps en nanosecondes
-     * 
+     *
      * @author slm
-     * 
+     *
      */
     class StopWatch {
 
@@ -150,7 +150,7 @@ public class HttpParserBenchmarkTest {
         /**
          * Arret du compteur et retour du temps en nanosecondes depuis le
          * dernier appel {@link #start()}
-         * 
+         *
          * @return
          */
         public long stop() {

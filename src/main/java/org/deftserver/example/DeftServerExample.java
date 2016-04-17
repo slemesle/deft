@@ -18,17 +18,17 @@ import com.google.common.collect.Maps;
 
 
 public class DeftServerExample {
-	
+
 	private final static Logger logger = LoggerFactory.getLogger(DeftServerExample.class);
 	private final static int PORT = 8080;
-	
+
 	private static class ExampleRequestHandler extends RequestHandler {
 
 		@Override
 		public void get(HttpRequest request, HttpResponse response) {
 			response.write("hello world");
 		}
-		
+
 		@Override
 		public void post(HttpRequest request, HttpResponse response) {
 			response.write("hello post world\nbody: " + request.getBody());
@@ -39,14 +39,14 @@ public class DeftServerExample {
 	public static void main(String[] args) {
 		Map<String, RequestHandler> handlers = Maps.newHashMap();
 		handlers.put("/", new ExampleRequestHandler());
-		
+
 		Application application = new Application(handlers);
 		application.setStaticContentDir("static");
-		
-		HttpServerDescriptor.KEEP_ALIVE_TIMEOUT = 30 * 1000;	// 30s  
-		HttpServerDescriptor.READ_BUFFER_SIZE = 1500;			// 1500 bytes 
-		HttpServerDescriptor.WRITE_BUFFER_SIZE = 1500;			// 1500 bytes 
-		
+
+		HttpServerDescriptor.KEEP_ALIVE_TIMEOUT = 30 * 1000;	// 30s
+		HttpServerDescriptor.READ_BUFFER_SIZE = 1500;			// 1500 bytes
+		HttpServerDescriptor.WRITE_BUFFER_SIZE = 1500;			// 1500 bytes
+
 
 		logger.debug("Starting up server on port: " + PORT);
 		HttpServer server = new HttpServer(application);

@@ -14,17 +14,17 @@ public class Closeables {
 	public static void closeQuietly(SelectableChannel channel) {
 		try {
 			IOLoopFactory.getLoopController().removeHandler(channel);
-			
+
 			com.google.common.io.Closeables.close(channel, true);
 		} catch (IOException ignore) { }
 	}
 
-	
+
 	public static void cancelAndCloseQuietly(SelectionKey key) {
 		try {
-			
+
 			key.cancel();
-			
+
 			com.google.common.io.Closeables.close(key.channel(), true);
 		} catch (IOException ignore) { }
 	}

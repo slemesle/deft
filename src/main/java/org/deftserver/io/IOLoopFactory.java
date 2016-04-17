@@ -6,13 +6,13 @@ public class IOLoopFactory {
 		SINGLE_THREADED,
 		MULTI_THREADED;
 	}
-	
+
 	private static  Mode mode = Mode.SINGLE_THREADED;
-	
+
 	 static void setMode(Mode _mode){
 		 mode  = _mode;
 	 }
-	
+
 	public static IOLoopController getLoopController (){
 		if(mode == Mode.SINGLE_THREADED){
 			return IOLoop.INSTANCE;

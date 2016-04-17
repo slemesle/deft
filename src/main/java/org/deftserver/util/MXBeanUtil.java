@@ -9,9 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MXBeanUtil {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(MXBeanUtil.class);
-	
+
 	private MXBeanUtil() {}
 
 	public static void registerMXBean(Object self, String type) {

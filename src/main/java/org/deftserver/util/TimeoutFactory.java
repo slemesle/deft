@@ -11,11 +11,11 @@ public class TimeoutFactory {
 		return new Timeout(
 				System.currentTimeMillis() + keepAliveTimeout,
 				new AsyncCallback() {
-					
+
 					@Override public void onCallback() { Closeables.closeQuietly(clientChannel); }
-				
+
 				}
 		);
 	}
-	
+
 }

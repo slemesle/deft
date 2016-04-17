@@ -16,7 +16,7 @@ import org.junit.Test;
 public class JMXDebuggableTimeoutManagerTest {
 
 	private final JMXDebuggableTimeoutManager tm = new JMXDebuggableTimeoutManager();
-	
+
 	@Test
 	public void timeoutManagerTest() throws InterruptedException {
 		final long now = System.currentTimeMillis();
@@ -32,31 +32,31 @@ public class JMXDebuggableTimeoutManagerTest {
 		addNopTimeout(now+1000);
 		addNopTimeout(now+1200);
 		addNopTimeout(now+1400);
-		
+
 		addNopKeepAliveTimeout(c1, now);
 		addNopKeepAliveTimeout(c2, now);
 		addNopKeepAliveTimeout(c3, now+1);
 		tm.touch(c1);
-		
+
 		assertEquals(11, tm.getNumberOfTimeouts());
 		assertEquals(3, tm.getNumberOfKeepAliveTimeouts());
 
 		Thread.sleep(200);
-	
+
 		tm.execute();
 		assertEquals(4, tm.getNumberOfTimeouts());
 		assertEquals(1, tm.getNumberOfKeepAliveTimeouts());
-	
+
 		Thread.sleep(2000);
 		tm.execute();
 		assertEquals(1, tm.getNumberOfTimeouts());
 		assertEquals(1, tm.getNumberOfKeepAliveTimeouts());
 	}
-	
+
 	private void addNopTimeout(long timeout) {
 		tm.addTimeout(new Timeout(timeout, new AsyncCallback() {
 			@Override public void onCallback() { /*nop*/}
-		}));	
+		}));
 	}
 
 	private void addNopKeepAliveTimeout(SelectableChannel channel, long timeout) {
@@ -64,42 +64,42 @@ public class JMXDebuggableTimeoutManagerTest {
 			@Override public void onCallback() { /*nop*/ }
 		}));
 	}
-	
+
 	@Test
 	public void addTimeoutDuringTimeoutExecution() throws InterruptedException {
 		final long now = System.currentTimeMillis();
 		addRecursiveTimeout(now);
 		addRecursiveTimeout(now+10);
 		addRecursiveTimeout(now+20);
-		
+
 		assertEquals(3, tm.getNumberOfTimeouts());
 		assertEquals(0, tm.getNumberOfKeepAliveTimeouts());
 
 		Thread.sleep(50);
 		long ms = tm.execute();
 		assertTrue(ms != Long.MAX_VALUE);
-		
+
 		assertEquals(3, tm.getNumberOfTimeouts());
 		assertEquals(0, tm.getNumberOfKeepAliveTimeouts());
-		
+
 		Thread.sleep(50);
 		tm.execute();
 		Thread.sleep(50);
 		tm.execute();
 		Thread.sleep(50);
 		tm.execute();
-		
+
 		assertEquals(0, tm.getNumberOfTimeouts());
 		assertEquals(0, tm.getNumberOfKeepAliveTimeouts());
 	}
-	
+
 	private void addRecursiveTimeout(final long timeout) {
 		final Timeout t = new Timeout(timeout, new AsyncCallback() {
 			@Override public void onCallback() { addNopTimeout(System.currentTimeMillis()); }
 		});
-		tm.addTimeout(t);	
+		tm.addTimeout(t);
 	}
-	
+
 	private class MockChannel extends SelectableChannel {
 
 		@Override
@@ -157,7 +157,7 @@ public class JMXDebuggableTimeoutManagerTest {
 			// TODO Auto-generated method stub
 
 		}
-		
+
 	}
 
 }

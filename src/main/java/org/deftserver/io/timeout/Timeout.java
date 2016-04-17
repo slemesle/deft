@@ -8,7 +8,7 @@ public class Timeout {
 	private final long timeout;
 	private final AsyncCallback cb;
 	private boolean cancelled = false;
-	
+
 	public Timeout(long timeout, AsyncCallback cb) {
 		this.timeout = timeout;
 		this.cb = cb;
@@ -17,11 +17,11 @@ public class Timeout {
 	public long getTimeout() {
 		return timeout;
 	}
-	
+
 	public void cancel() {
 		cancelled = true;
 	}
-	
+
 	public boolean isCancelled() {
 		return cancelled;
 	}

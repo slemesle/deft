@@ -29,13 +29,13 @@ public class RequestHandlerTest {
 		@Override
 		public void get(HttpRequest request, HttpResponse response) { }
 
-		
+
 		@Override
 		@Asynchronous
 		@Authenticated
 		public void post(HttpRequest request, HttpResponse response) { }
 
-		
+
 	}
 
 	@Test
@@ -44,11 +44,11 @@ public class RequestHandlerTest {
 		RequestHandler rh2 = new RequestHandler2();
 
 		assertTrue(rh1.isMethodAsynchronous(HttpVerb.GET));
-		
+
 		assertFalse(rh2.isMethodAsynchronous(HttpVerb.GET));
 		assertTrue(rh2.isMethodAsynchronous(HttpVerb.POST));
 	}
-	
+
 	@Test
 	public void testAuthenticatedAnnotations() {
 		RequestHandler rh1 = new RequestHandler1();
@@ -57,7 +57,7 @@ public class RequestHandlerTest {
 		assertTrue(rh1.isMethodAuthenticated(HttpVerb.GET));
 		assertFalse(rh1.isMethodAuthenticated(HttpVerb.POST));
 		assertFalse(rh1.isMethodAuthenticated(HttpVerb.DELETE));
-		
+
 		assertFalse(rh2.isMethodAuthenticated(HttpVerb.GET));
 		assertFalse(rh2.isMethodAuthenticated(HttpVerb.PUT));
 		assertTrue(rh2.isMethodAuthenticated(HttpVerb.POST));

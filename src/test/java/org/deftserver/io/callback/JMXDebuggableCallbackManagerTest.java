@@ -13,60 +13,60 @@ import org.junit.Test;
 
 
 public class JMXDebuggableCallbackManagerTest {
-	
+
 	private final JMXDebuggableCallbackManager cm = new JMXDebuggableCallbackManager();
-	
+
 	@Test
 	public void simpleJMXDeubggableCallbackManagerTest() {
 		final CountDownLatch latch = new CountDownLatch(3);
-		
+
 		final AsyncCallback cb1 = new AsyncCallback() {
 			@Override
 			public void onCallback() { latch.countDown(); }
 		};
-		
+
 		final AsyncCallback cb2 = new AsyncCallback() {
 			@Override
 			public void onCallback() { latch.countDown(); }
 		};
-		
+
 		final AsyncCallback cb3 = new AsyncCallback() {
 			@Override
-			public void onCallback() { 
+			public void onCallback() {
 				latch.countDown();
-				cm.addCallback(cb1); 	// adding a new callback that should be scheduled for execution 
+				cm.addCallback(cb1); 	// adding a new callback that should be scheduled for execution
 										// during the next iteration (i.e next call to execute)
 			}
 		};
-		
+
 		cm.addCallback(cb1);
 		cm.addCallback(cb2);
 		cm.addCallback(cb3);
-		
+
 		assertEquals(3, cm.getNumberOfCallbacks());
-		
+
 		boolean pending = cm.execute();
-		
+
 		assertEquals(true, pending);
 		assertEquals(1, cm.getNumberOfCallbacks());
 		assertEquals(0, latch.getCount());
 	}
-	
+
 	@Test
 	public void concurrencyTest() {
 		final int nThreads = 25;
 		final int n = 20 * 1000;
 		final int[] exceptionThrown = {0};
 		Runnable ioLoopTask = new Runnable() {
-			
-			public void run() { 
+
+			public void run() {
 				try {
-					cm.execute(); 
+					cm.execute();
 				} catch (Exception e) {
 					exceptionThrown[0] = 1;
 				}
 			}
-			
+
 		};
 
 		ScheduledExecutorService ioLoop = Executors.newSingleThreadScheduledExecutor();
@@ -74,10 +74,10 @@ public class JMXDebuggableCallbackManagerTest {
 
 		final CountDownLatch latch = new CountDownLatch(n);
 		ScheduledExecutorService workerThreads = Executors.newScheduledThreadPool(nThreads);
-		Runnable work = new Runnable() { 
+		Runnable work = new Runnable() {
 
-			public void run() { 
-				cm.addCallback(AsyncCallback.nopCb); 
+			public void run() {
+				cm.addCallback(AsyncCallback.nopCb);
 				latch.countDown();
 			}
 

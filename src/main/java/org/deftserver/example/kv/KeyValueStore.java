@@ -35,10 +35,10 @@ public class KeyValueStore extends Thread {
 		logger.debug("Initializing KeyValueStore");
 		initialize();
 	}
-	
+
 	public void run() {
 		try {
-			logger.debug("KeyValueStore waiting for clients...");	
+			logger.debug("KeyValueStore waiting for clients...");
 			Socket clientSocket = serverSocket.accept();
 			logger.debug("KeyValueStore client connected...");
 			BufferedWriter os = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));

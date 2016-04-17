@@ -19,14 +19,14 @@ public class AsyncResponseQueue {
 		}
 	};*/
 	private Boolean planned;
-	
+
 	private final AtomicInteger ai = new AtomicInteger();
 
 	public AsyncResponseQueue() {
 		queue = new LinkedBlockingQueue<HttpResponse>();
 		planned = false;
 	}
-	
+
 	public void planify(){
 		ai.incrementAndGet();
 		if (!planned){
@@ -41,7 +41,7 @@ public class AsyncResponseQueue {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	 void sendQueuedResponses() {
@@ -49,7 +49,7 @@ public class AsyncResponseQueue {
 			return;
 		}
 		LOG.debug("About to send queued responses.");
-		
+
 		HttpResponse resp;
 		while ((resp = queue.poll()) != null) {
 			resp.finish();
@@ -59,8 +59,8 @@ public class AsyncResponseQueue {
 		if (ai.intValue()== 0){
 			LOG.debug("All queued responses sent.");
 			planned = false;
-		} 
-		
+		}
+
 	}
 
 /*	private void addTimeout() {

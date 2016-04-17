@@ -10,7 +10,7 @@ public class ArrayUtil {
 			if (!array[i].trim().equals("")) {
 				String[] trimmedArray = new String[i+1];
 				System.arraycopy(array, 0, trimmedArray, 0, i+1);
-				return trimmedArray; 
+				return trimmedArray;
 			}
 		}
 		return null;
@@ -20,5 +20,5 @@ public class ArrayUtil {
 //			return list.toArray(EMPTY_STRING_ARRAY);
 //	 	}
 	}
-	
+
 }

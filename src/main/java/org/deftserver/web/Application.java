@@ -14,7 +14,7 @@ import org.deftserver.web.http.HttpRequest;
 import com.google.common.collect.ImmutableMap;
 
 public class Application {
-	
+
 	/**
 	 * "Normal/Absolute" (non group capturing) RequestHandlers
 	 * e.g. "/", "/persons"
@@ -23,20 +23,20 @@ public class Application {
 
 	/**
 	 * Group capturing RequestHandlers
-	 * e.g. "/persons/([0-9]+)", "/persons/(\\d{1,3})"  
+	 * e.g. "/persons/([0-9]+)", "/persons/(\\d{1,3})"
 	 */
 	private final ImmutableMap<String, RequestHandler> capturingHandlers;
-	
+
 	/**
 	 * A mapping between group capturing RequestHandlers and their corresponding pattern ( e.g. "([0-9]+)" )
 	 */
 	private final ImmutableMap<RequestHandler, Pattern> patterns;
-	
+
 	/**
 	 * The directory where static content (files) will be served from.
 	 */
 	private String staticContentDir;
-	
+
 	public Application(Map<String, RequestHandler> handlers) {
 		ImmutableMap.Builder<String, RequestHandler> builder = new ImmutableMap.Builder<String, RequestHandler>();
 		ImmutableMap.Builder<String, RequestHandler> capturingBuilder = new ImmutableMap.Builder<String, RequestHandler>();
@@ -60,9 +60,9 @@ public class Application {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param path Requested path
-	 * @return Returns the {@link RequestHandler} associated with the given path. If no mapping exists a 
+	 * @return Returns the {@link RequestHandler} associated with the given path. If no mapping exists a
 	 * {@link NotFoundRequestHandler} is returned.
 	 */
 	private RequestHandler getHandler(String path) {
@@ -74,15 +74,15 @@ public class Application {
 				// path could be prefixed with the 'static content directory'
 				rh = getStaticContentHandler(path);
 			}
-		} 
+		}
 		return rh != null ? rh : NotFoundRequestHandler.getInstance();	// TODO RS store in a final field for improved performance?
 	}
-	
+
 	public RequestHandler getHandler(HttpRequest request) {
 		if (!HttpUtil.verifyRequest(request)) {
-			return BadRequestRequestHandler.getInstance(); 
+			return BadRequestRequestHandler.getInstance();
 		}
-		// if @Authenticated annotation is present, make sure that the request/user is authenticated 
+		// if @Authenticated annotation is present, make sure that the request/user is authenticated
 		// (i.e RequestHandler.getCurrentUser() != null).
 		RequestHandler rh = getHandler(request.getRequestedPath());;
 		if (rh.isMethodAuthenticated(request.getMethod()) && rh.getCurrentUser(request) == null) {
@@ -90,18 +90,18 @@ public class Application {
 		}
 		return rh;
 	}
-	
+
 	private boolean containsCapturingGroup(String group) {
 		boolean containsGroup =  group.matches("^\\(.*\\)$");
 		Pattern.compile(group);	// throws PatternSyntaxException if group is malformed regular expression
 		return containsGroup;
 	}
-	
+
 	private RequestHandler getCapturingHandler(String path) {
 		int index = path.lastIndexOf("/");
 		if (index != -1) {
 			String init = path.substring(0, index+1);	// path without its last segment
-			String group = path.substring(index+1, path.length()); 
+			String group = path.substring(index+1, path.length());
 			RequestHandler handler = capturingHandlers.get(init);
 			if (handler != null) {
 				Pattern regex = patterns.get(handler);
@@ -112,19 +112,19 @@ public class Application {
 		}
 		return null;
 	}
-	
+
 	private RequestHandler getStaticContentHandler(String path) {
 		if (staticContentDir == null || path.length() <= staticContentDir.length()) {
 			return null;	// quick reject (no static dir or simple contradiction)
 		}
-		
+
 		if (path.substring(1).startsWith(staticContentDir)) {
 			return StaticContentHandler.getInstance();
 		} else {
 			return null;
 		}
 	}
-	
+
 	public void setStaticContentDir(String scd) {
 		this.staticContentDir = scd;
 	}

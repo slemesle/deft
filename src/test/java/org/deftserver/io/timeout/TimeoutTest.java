@@ -13,13 +13,13 @@ public class TimeoutTest {
 		final AsyncCallback cb = new AsyncCallback() {
 			@Override public void onCallback() {}
 		};
-		
+
 		Timeout t = new Timeout(1492, cb);
 
 		assertEquals(1492, t.getTimeout());
 		assertEquals(cb, t.getCallback());
 	}
-	
+
 	@Test
 	public void timeoutCancelledTest() {
 		final long now = System.currentTimeMillis();
@@ -28,9 +28,9 @@ public class TimeoutTest {
 		assertTrue(t1.getCallback() == cb);
 
 		t1.cancel();
-		
+
 		assertTrue(t1.getCallback() != cb);
 		assertTrue(t1.isCancelled());
 	}
-	
+
 }

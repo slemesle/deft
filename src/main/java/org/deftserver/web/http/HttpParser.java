@@ -5,32 +5,32 @@ import java.nio.ByteBuffer;
 
 public class HttpParser {
 	private final ByteBuffer buffer;
-	
-	private byte currentChar;
-	
-	private int currentLineLength;
-	
-	private int lineCount;
-	
 
-	
+	private byte currentChar;
+
+	private int currentLineLength;
+
+	private int lineCount;
+
+
+
 	private ErrorStatus status = ErrorStatus.OK;
-	
+
 	enum ErrorStatus {
 		OK,
-		TOO_LONG_REQUEST_LINE, 
+		TOO_LONG_REQUEST_LINE,
 		BAD_HEADER_NAME_FORMAT,
 		BAD_REQUEST,
-		
+
 	}
-	
-	
+
+
 	public HttpParser(ByteBuffer buffer) {
 		this.buffer = buffer;
 		lineCount = 0;
 	}
-	
-	
+
+
 	public boolean skipWhiteSpaceAndLine(){
 
 		while(buffer.hasRemaining()){
@@ -42,8 +42,8 @@ public class HttpParser {
 		}
 		return false;
 	}
-	
-	
+
+
 	/**
 	 * Reads the buffer till end of line
 	 * @return
@@ -53,25 +53,25 @@ public class HttpParser {
 
 		while (buffer.hasRemaining() && currentLineLength < HttpServerDescriptor.REQUEST_LINE_MAX_SIZE){
 			currentChar = buffer.get();
-			
+
 			if(isCRLF(currentChar)){
 				break;
 			}
 			currentLineLength++;
 		}
-		
+
 		if (currentLineLength > 0 && isCRLF(currentChar)){
 			return new String (buffer.array(), position, buffer.position() - position-1);
 		}
-		
+
 		if (currentLineLength >= HttpServerDescriptor.REQUEST_LINE_MAX_SIZE){
 			status = ErrorStatus.TOO_LONG_REQUEST_LINE;
 		}
-		
+
 		return null;
 
 	}
-	
+
 	/**
 	 * Reads a header name from buffer current position
 	 * @param c
@@ -90,17 +90,17 @@ public class HttpParser {
 				return new String (buffer.array(), position -1, buffer.position() - position );
 			}
 		}
-		
+
 		if (currentLineLength >= HttpServerDescriptor.REQUEST_LINE_MAX_SIZE){
 			status = ErrorStatus.TOO_LONG_REQUEST_LINE;
 		}
-		
+
 		if (isCRLF(currentChar)){
 			status = ErrorStatus.BAD_HEADER_NAME_FORMAT;
 		}
 		return null;
 	}
-	
+
 	/**
 	 * True if the current parser position points to a space char
 	 * @return
@@ -108,7 +108,7 @@ public class HttpParser {
 	public boolean isWhiteSpace(){
 		return isWhiteSpace(currentChar);
 	}
-	
+
 	/**
 	 * Skips all end of line characters.
 	 * @return
@@ -136,8 +136,8 @@ public class HttpParser {
 
 		return res;
 	}
-	
-	
+
+
 	/**
 	 * Parse the request line
 	 * @param c
@@ -159,39 +159,39 @@ public class HttpParser {
 				i++;
 			}
 		}
-		
+
 		if (i == 2 && isCRLF(currentChar)){
 			res[i] = new String (buffer.array(), position, buffer.position() - position-1);
 			return res;
 		}
-		
+
 		status = ErrorStatus.BAD_REQUEST;
 		return null;
 	}
-	
-	
+
+
 	public ByteBuffer getBuffer() {
 		return buffer;
 	}
-	
+
 	/**
-	 * True if underlying buffer {@link ByteBuffer#hasRemaining()} and 
+	 * True if underlying buffer {@link ByteBuffer#hasRemaining()} and
 	 * the current status is {@link ErrorStatus#OK}.
 	 * @return
 	 */
 	public boolean hasRemaining(){
-		return ErrorStatus.OK == status && buffer.hasRemaining(); 
+		return ErrorStatus.OK == status && buffer.hasRemaining();
 	}
 
 	/**
-	 * True if 
+	 * True if
 	 * the current status is {@link ErrorStatus#OK}.
 	 * @return
 	 */
 	public boolean hasErrors(){
-		return ErrorStatus.OK == status; 
+		return ErrorStatus.OK == status;
 	}
-	
+
 	/**
 	 * '\r' and '\n' are considered as CRLF
 	 * @param c
@@ -200,7 +200,7 @@ public class HttpParser {
 	private boolean isCRLF(byte c){
 		return ((c == '\r' )||(c == '\n'));
 	}
-	
+
 	/**
 	 * Htab and space chars are considered as white-space
 	 * @param c
@@ -209,5 +209,5 @@ public class HttpParser {
 	private boolean isWhiteSpace(byte c){
 		return (c == ' ') || (c == '\t');
 	}
-	
+
 }
